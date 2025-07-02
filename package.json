@@ -1,0 +1,24 @@
+{
+  "name": "estudos_javascript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DJunqueiraO/estudos_javascript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DJunqueiraO/estudos_javascript/issues"
+  },
+  "homepage": "https://github.com/DJunqueiraO/estudos_javascript#readme",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "lodash": "^4.17.21"
+  }
+}

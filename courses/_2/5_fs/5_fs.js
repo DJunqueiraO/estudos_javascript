@@ -1,9 +1,30 @@
 const {
-    readFileSync,
-    writeFileSync
+    readFile,
+    writeFile
 } = require('fs');
 
-const first = readFileSync('./content/sub/first.txt', 'utf8');
-const second = readFileSync('./content/sub/second.txt', 'utf8');
-
-console.log(`${first}\n${second}`);
+readFile('./content/sub/lero.txt', 'utf8', (err, res) => {
+    if(err) {
+        console.error(err);
+        return;
+    }
+    const lero = res;
+    readFile('./content/sub/_lero.txt', 'utf8', (err, res) => {
+        if(err) {
+            console.error(err);
+            return;
+        }
+        const _lero = res;
+        writeFile(
+            './content/sub/lero_lero.txt',
+            `Here is the both leros: \n\n${lero}\n${_lero}`,
+            (err) => {
+                if(err) {
+                    console.error(err);
+                    return;
+                }
+                console.log('File written successfully');
+            }
+        );
+    })
+})
