@@ -122,6 +122,18 @@ app.delete('/api/people/:id', (request, response) => {
 })
 
 app.delete('/api/people', (request, response) => {
+    if(Object.keys(request.body).length) {
+        const id = request.body.id || 0
+        const deleteResult = people.deletePerson(id)
+        if(deleteResult) {
+            return response
+                .status(200)
+                .send(deleteResult)
+        }
+        return response
+            .status(404)
+            .send({success: false, msg: 'Person not found'})
+    }
     people.setPeople([]);
     return response
         .status(200)
