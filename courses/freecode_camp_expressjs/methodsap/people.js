@@ -31,10 +31,12 @@ class People {
         return personToAdd;
     }
 
-    putPerson(nextPerson) {
+    putPerson(person) {
         let people = this.getPeople();
+        let nextPerson = person
         const modified = people.some((currentPerson, index) => {
-            if(`${currentPerson.id || 0}` === `${nextPerson.id || 0}`) {
+            if(`${currentPerson.id || 0}` === `${person.id || 0}`) {
+                nextPerson = {...person, id: currentPerson.id};
                 people[index] = nextPerson
                 return true
             }

@@ -1,21 +1,14 @@
 const express = require('express');
+const router = express.Router();
+const people = require('../methodsap/people');
 
-const data = require('./courses/freecode_camp_expressjs/apiap/data');
-const people = require('./courses/freecode_camp_expressjs/methodsap/people');
-const app = express();
-const port = 5000
-
-app.use(express.static('courses/freecode_camp_expressjs/methodsap'));
-app.use(express.urlencoded({extended: false}));
-app.use(express.json())
-
-app.get('/api/people', (_, response) => {
+router.get('/', (_, response) => {
     return response
         .status(200)
         .json(people.getPeople())
 })
 
-app.get('/api/people/:id', (request, response) => {
+router.get('/:id', (request, response) => {
     const person = people.getPerson(request?.params.id)
     if(person) {
         return response
@@ -27,7 +20,7 @@ app.get('/api/people/:id', (request, response) => {
         .send({success: false, msg: 'Person not found'})
 })
 
-app.post('/api/people', (request, response) => {
+router.post('/', (request, response) => {
     const body = request.body
     if(!body) {
         return response
@@ -44,7 +37,7 @@ app.post('/api/people', (request, response) => {
         .send(people.addPerson(body))
 })
 
-app.post('/api/postman/people', (request, response) => {
+router.post('/postman', (request, response) => {
     const body = request.body
     if(!body) {
         return response
@@ -61,7 +54,7 @@ app.post('/api/postman/people', (request, response) => {
         .send({success: true, data: [...data.people, {id: data.people.length + 1, name: body.name}]})
 })
 
-app.post('/login', (request, response) => {
+router.post('/login', (request, response) => {
     const body = request.body
     if (body?.name) {
         return response
@@ -80,7 +73,7 @@ app.post('/login', (request, response) => {
     }
 })
 
-app.put('/api/people', (request, response) => {
+router.put('/', (request, response) => {
     const body = request.body
     if(!body) {
         return response
@@ -108,7 +101,7 @@ app.put('/api/people', (request, response) => {
         .send({success: false, msg: 'Person not found'})
 })
 
-app.delete('/api/people/:id', (request, response) => {
+router.delete('/:id', (request, response) => {
     const id = request.params.id
     const deleteResult = people.deletePerson(id)
     if(deleteResult) {
@@ -121,7 +114,7 @@ app.delete('/api/people/:id', (request, response) => {
         .send({success: false, msg: 'Person not found'})
 })
 
-app.delete('/api/people', (request, response) => {
+router.delete('/', (request, response) => {
     if(Object.keys(request.body).length) {
         const id = request.body.id || 0
         const deleteResult = people.deletePerson(id)
@@ -140,4 +133,4 @@ app.delete('/api/people', (request, response) => {
         .send([])
 })
 
-app.listen(port, () => console.log(`Server is listening on port ${port}...`));
+module.exports = router
