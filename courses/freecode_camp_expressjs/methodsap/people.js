@@ -23,6 +23,13 @@ class People {
         return this.getPeople().find(person => `${person.id || 0}` === `${id || 0}`)
     }
 
+    matchNamePassword(person) {
+        return this.getPeople().find(
+            findingPerson => findingPerson.name === person.name && 
+            findingPerson.password === person.password
+        )
+    }
+
     addPerson(person) {
         const people = this.getPeople();
         const personToAdd = {...person, id: people.length};

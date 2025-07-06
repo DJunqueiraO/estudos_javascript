@@ -55,22 +55,15 @@ router.post('/postman', (request, response) => {
 })
 
 router.post('/login', (request, response) => {
-    const body = request.body
-    if (body?.name) {
+    const person = people.matchNamePassword(request?.body)
+    if(person) {
         return response
             .status(200)
-            .json({name: body.name})
-    } else {
-        if (!body) {
-            return response
-                .status(400)
-                .json({error: 'Body is required'})
-        } else if (!body.name) {
-            return response
-                .status(400)
-                .json({error: 'Name is required'})
-        }
+            .send(person)
     }
+    return response
+        .status(404)
+        .send({success: false, msg: 'Person not found'})
 })
 
 router.put('/', (request, response) => {
