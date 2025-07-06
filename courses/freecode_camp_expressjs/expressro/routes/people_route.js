@@ -1,6 +1,5 @@
-const express = require('express');
-const router = express.Router();
-const people = require('../methodsap/people');
+const router = require('express').Router();
+const people = require('../../methodsap/people');
 
 router.get('/', (_, response) => {
     return response
@@ -52,18 +51,6 @@ router.post('/postman', (request, response) => {
     return response
         .status(201)
         .send({success: true, data: [...data.people, {id: data.people.length + 1, name: body.name}]})
-})
-
-router.post('/login', (request, response) => {
-    const person = people.matchNamePassword(request?.body)
-    if(person) {
-        return response
-            .status(200)
-            .send(person)
-    }
-    return response
-        .status(404)
-        .send({success: false, msg: 'Person not found'})
 })
 
 router.put('/', (request, response) => {

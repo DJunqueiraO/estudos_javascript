@@ -32,7 +32,11 @@ class People {
 
     addPerson(person) {
         const people = this.getPeople();
-        const personToAdd = {...person, id: people.length};
+        let id = person.id || 0
+        while(people.some(person => `${person.id || 0}` === `${id || 0}`)) {
+            id++
+        }
+        const personToAdd = {...person, id: id};
         people.push(personToAdd);
         this.setPeople(people);
         return personToAdd;
