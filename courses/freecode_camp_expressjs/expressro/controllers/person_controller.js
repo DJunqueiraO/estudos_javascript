@@ -35,6 +35,23 @@ class PersonController {
             .status(201)
             .send(people.addPerson(body))
     }
+    
+    postToPostman = (request, response) => {
+        const body = request.body
+        if(!body) {
+            return response
+                .status(400)
+                .json({success: false, msg: 'Body is required'})
+        } 
+        if(!body.name) {
+            return response
+                .status(400)
+                .json({success: false, msg: 'Name is required'})
+        }
+        return response
+            .status(201)
+            .send({success: true, data: [...data.people, {id: data.people.length + 1, name: body.name}]})
+    }
 
     put = (request, response) => {
         const body = request.body

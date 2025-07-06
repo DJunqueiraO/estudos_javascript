@@ -8,6 +8,8 @@ router.get('/:id', personController.get)
 
 router.post('/', personController.post)
 
+router.post('/postman', personController.postToPostman)
+
 router.put('/', personController.put)
 
 router.delete('/:id', personController.deleteById)
