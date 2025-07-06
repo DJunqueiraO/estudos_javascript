@@ -13,4 +13,4 @@ router.route('/:id')
 router.route('/postman')
     .post(personController.postToPostman)
 
-module.exports = router
+module.exports = routerg 
